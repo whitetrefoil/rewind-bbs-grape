@@ -14,10 +14,9 @@ Using:
 
 There are some other "rewind-bbs" written in different languages with different techniques:
 
-* [rewind-bbs-node](/whitetrefoil/rewind-bbs-node)
+* [rewind-bbs-node](https://github.com/whitetrefoil/rewind-bbs-node)
     * Node.js
     * restify
-* [rewind-bbs-eve](/whitetrefoil/rewind-bbs-eve)
+* [rewind-bbs-eve](https://github.com/whitetrefoil/rewind-bbs-eve)
     * Python
     * Eve
-    
