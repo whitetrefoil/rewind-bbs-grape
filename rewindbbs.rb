@@ -9,6 +9,7 @@ require_relative 'api/api'
 
 module RewindBBS
   class Service < Grape::API
+    mount RewindBBS::Resource::Users => '/users'
   end
 end
 

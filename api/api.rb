@@ -6,3 +6,5 @@ module RewindBBS
   class BaseAPI < Grape::API
   end
 end
+
+require_relative 'users'

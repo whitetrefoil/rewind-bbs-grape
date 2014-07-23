@@ -10,3 +10,5 @@ module RewindBBS
   class BaseModel
   end
 end
+
+require_relative 'user'
