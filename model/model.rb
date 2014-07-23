@@ -11,4 +11,5 @@ module RewindBBS
   end
 end
 
+require_relative 'post'
 require_relative 'user'

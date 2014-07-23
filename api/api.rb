@@ -7,4 +7,5 @@ module RewindBBS
   end
 end
 
+require_relative 'posts'
 require_relative 'users'

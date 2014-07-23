@@ -19,7 +19,6 @@ module RewindBBS
       field :password, type: String
 
       exports do |json|
-        json.property :id
         json.property :name
       end
 

@@ -38,15 +38,12 @@ module RewindBBS
     end
 
     def to_json(options={})
-      fix_id self.class::Decorator::JSON.new(self).to_json(options)
-
+      if options[:hal]
+        fix_id self.class::Decorator::HAL.new(self).to_json(options)
+      else
+        fix_id self.class::Decorator::JSON.new(self).to_json(options)
+      end
     end
-
-    def to_hal(options={})
-      fix_id self.class::Decorator::HAL.new(self).to_json(options)
-    end
-
-    alias_method :to_hal_json, :to_hal
 
     protected
 
