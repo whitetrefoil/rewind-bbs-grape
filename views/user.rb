@@ -5,6 +5,8 @@ module RewindBBS
   module View
     module UserRepresenter
       include Roar::Representer::JSON::HAL
+
+      property :id
       property :name
     end
 
