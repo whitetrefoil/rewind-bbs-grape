@@ -2,7 +2,9 @@ module RewindBBS
   module Resource
     class Users < Grape::API
       include View
+      include BaseAPI
 
+      default_format :json
       content_type :json, 'application/json'
       content_type :hal_json, 'application/hal+json'
       formatter :hal_json, lambda { |obj, env| obj.to_json }
@@ -20,7 +22,7 @@ module RewindBBS
         end
         route_param :id do
           get do
-            user = Model::User.find params[:id] rescue error! 'No such user!', 404
+            user = Model::User.find params[:id] rescue respond_error 404, 'No such user!'
             user.extend UserRepresenter
           end
         end
@@ -31,10 +33,14 @@ module RewindBBS
           requires :password, type: String, desc: 'Password'
         end
         post do
-          user = Model::User.create(
-              name:     params[:name],
-              password: params[:password]
-          )
+          begin
+            user = Model::User.create!(
+                name:     params[:name],
+                password: params[:password]
+            )
+          rescue Mongoid::Errors::Validations => e
+            respond_error 409, e.as_json['summary']
+          end
           user.extend UserRepresenter
         end
 
@@ -45,7 +51,7 @@ module RewindBBS
         end
         route_param :id do
           put do
-            user = Model::User.find params[:id] rescue error! 'No such user!', 404
+            user = Model::User.find params[:id] rescue respond_error 404, 'No such user!'
             user.update_attributes name: params[:name]
             user.save
             user.extend UserRepresenter
@@ -58,7 +64,7 @@ module RewindBBS
         end
         route_param :id do
           delete do
-            user = Model::User.find params[:id] rescue error! 'No such user!', 404
+            user = Model::User.find params[:id] rescue respond_error 404, 'No such user!'
             user.destroy
             user.extend UserRepresenter
           end

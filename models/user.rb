@@ -15,6 +15,8 @@ module RewindBBS
       field :name,     type: String
       field :password, type: String
 
+      validates :name, uniqueness: true
+
       def authenticate(pass)
         check_password pass
       end

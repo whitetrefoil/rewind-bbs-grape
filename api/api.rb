@@ -1,9 +1,16 @@
 module RewindBBS
   module Resource
-
-  end
-
-  class BaseAPI < Grape::API
+    module BaseAPI
+      def self.included(base)
+        base.class_eval do
+          helpers do
+            def respond_error(code, msg)
+              error!({ code: code, message: msg }, code)
+            end
+          end
+        end
+      end
+    end
   end
 end
 
