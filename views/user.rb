@@ -1,5 +1,4 @@
 require 'roar/representer/json/hal'
-require 'representable/json/collection'
 
 module RewindBBS
   module View
@@ -11,8 +10,9 @@ module RewindBBS
     end
 
     module UsersRepresenter
-      include Representable::JSON::Collection
-      items extend: UserRepresenter
+      include Roar::Representer::JSON::HAL
+
+      collection :all, as: :users, extend: UserRepresenter, embedded: true
     end
   end
 end

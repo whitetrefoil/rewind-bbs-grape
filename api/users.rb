@@ -12,8 +12,7 @@ module RewindBBS
       resource :users do
         desc 'List all users'
         get do
-          users = Model::User.all
-          users.extend UsersRepresenter
+          Model::User.extend UsersRepresenter
         end
 
         desc 'Get one user'
