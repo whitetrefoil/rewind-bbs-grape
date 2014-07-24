@@ -21,12 +21,43 @@ module RewindBBS
         check_password pass
       end
 
-      def self.authenticate(name, pass)
-        user = self.where(name: name).first
-        if !user.nil? and user.authenticate(pass)
-          user
-        else
-          nil
+      class << self
+        def authenticate(name, pass)
+          user = self.where(name: name).first
+          if !user.nil? and user.authenticate(pass)
+            user
+          else
+            nil
+          end
+        end
+
+        attr_writer :pre_page
+        attr_accessor :current_page
+
+        def pre_page
+          @pre_page || 10
+        end
+
+        def from
+          if current_page.nil? or count == 0 or current_page > max_page
+            nil
+          else
+            (current_page - 1) * pre_page + 1
+          end
+        end
+
+        def to
+          if current_page.nil? or count == 0 or current_page > max_page
+            nil
+          elsif current_page == max_page
+            count
+          else
+            current_page * pre_page
+          end
+        end
+
+        def max_page
+          (Float(count) / pre_page).ceil
         end
       end
 
