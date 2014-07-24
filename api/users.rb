@@ -5,9 +5,6 @@ module RewindBBS
       include BaseAPI
 
       default_format :json
-      content_type :json, 'application/json'
-      content_type :hal_json, 'application/hal+json'
-      formatter :hal_json, lambda { |obj, env| obj.to_json }
 
       resource :users do
         desc 'List all users'
