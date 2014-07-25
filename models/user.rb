@@ -22,9 +22,11 @@ module RewindBBS
       end
 
       class << self
-        def authenticate(name, pass)
-          user = self.where(name: name).first
-          if !user.nil? and user.authenticate(pass)
+        def authenticate(id: nil, name: nil, pass: nil)
+          user = nil
+          user = self.find(id) unless id.nil?
+          user ||= self.where(name: name).first unless name.nil?
+          if user and user.authenticate(pass)
             user
           else
             nil

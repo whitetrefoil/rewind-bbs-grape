@@ -4,7 +4,9 @@ module RewindBBS
       include View
       include BaseAPI
 
-      default_format :json
+      before do
+        authenticate!
+      end
 
       resource :users do
         desc 'List all users'

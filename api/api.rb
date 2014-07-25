@@ -3,6 +3,8 @@ module RewindBBS
     module BaseAPI
       def self.included(base)
         base.class_eval do
+          default_format :json
+
           helpers do
             def respond_error(code, msg)
               error!({ code: code, message: msg }, code)
@@ -15,3 +17,4 @@ module RewindBBS
 end
 
 require_relative 'users'
+require_relative 'login'
