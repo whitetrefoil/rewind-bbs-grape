@@ -7,17 +7,16 @@ module RewindBBS
 
       property :id
       property :name
+      property :email
+      property :avatar_url
+      property :bio
+      property :title
     end
 
     module UsersRepresenter
       include Roar::Representer::JSON
+      include ListRepresenter
 
-      property :count, as: :total
-      property :pre_page
-      property :total_pages
-      property :current_page
-      property :from
-      property :to
       collection :all, as: :users, extend: UserRepresenter, embedded: true
     end
   end

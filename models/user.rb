@@ -12,10 +12,16 @@ module RewindBBS
 
       before_save :encrypt_password
 
-      field :name,     type: String
-      field :password, type: String
+      field :name,       type: String
+      field :password,   type: String
+      field :email,      type: String
+      field :avatar_url, type: String
+      field :bio,        type: String
+      field :title,      type: String
 
-      validates :name, uniqueness: true
+      validates :name,     uniqueness: true
+      validates :name,     presence: true
+      validates :password, presence: true
 
       def authenticate(pass)
         check_password pass
