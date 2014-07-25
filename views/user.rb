@@ -14,7 +14,8 @@ module RewindBBS
 
       property :count, as: :total
       property :pre_page
-      property :max_page
+      property :total_pages
+      property :current_page
       property :from
       property :to
       collection :all, as: :users, extend: UserRepresenter, embedded: true

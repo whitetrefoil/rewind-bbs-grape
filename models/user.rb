@@ -2,11 +2,11 @@ require 'bcrypt'
 
 module RewindBBS
   module Model
-
-    class User < BaseModel
+    class User
       include Mongoid::Document
       include Mongoid::Timestamps
       include BCrypt
+      include Paginatable
 
       store_in collection: 'users'
 
@@ -29,35 +29,6 @@ module RewindBBS
           else
             nil
           end
-        end
-
-        attr_writer :pre_page
-        attr_accessor :current_page
-
-        def pre_page
-          @pre_page || 10
-        end
-
-        def from
-          if current_page.nil? or count == 0 or current_page > max_page
-            nil
-          else
-            (current_page - 1) * pre_page + 1
-          end
-        end
-
-        def to
-          if current_page.nil? or count == 0 or current_page > max_page
-            nil
-          elsif current_page == max_page
-            count
-          else
-            current_page * pre_page
-          end
-        end
-
-        def max_page
-          (Float(count) / pre_page).ceil
         end
       end
 

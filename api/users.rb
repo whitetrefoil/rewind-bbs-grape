@@ -8,9 +8,13 @@ module RewindBBS
 
       resource :users do
         desc 'List all users'
+        params do
+          optional :page, type: Fixnum, desc: 'The page number'
+        end
         get do
-          users = Model::User.all
-          users.current_page = 1
+          page = params[:page] || 1
+          users = Model::User.paginate(page).all
+          users.current_page = page
           users.extend UsersRepresenter
         end
 
